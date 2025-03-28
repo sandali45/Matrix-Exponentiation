@@ -1,4 +1,4 @@
-Matrix Exponentiation & Fibonacci/Tribonacci Calculator
+##Matrix Exponentiation & Fibonacci/Tribonacci Calculator
 
 This project provides a web-based interface for performing matrix exponentiation and calculating the nth Fibonacci and Tribonacci numbers using Python Flask. The goal of this project is to showcase various matrix exponentiation methods, such as naive, iterative, and exponentiation by squaring, to efficiently compute results.
 
