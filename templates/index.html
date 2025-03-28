@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matrix Exponentiation</title>
+  <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Matrix Exponentiation</h1>
+
+    <!-- Select Method -->
+    <label for="method">Select Method:</label>
+    <select id="method" name="method">
+      <option value="naive">Naive Method</option>
+      <option value="exponentiation">Exponentiation by Squaring</option>
+      <option value="iterative">Iterative Exponentiation</option>
+    </select>
+
+    <br><br>
+
+    <!-- Matrix Size Input -->
+    <label for="matrix-size">Matrix Size:</label>
+    <input type="number" id="matrix-size" name="matrix-size" min="1" max="5" oninput="generateMatrix();">
+
+    <!-- Container for Matrix Grid -->
+    <div id="matrix-container"></div>
+
+    <br><br>
+
+    <!-- Exponent Input -->
+    <label for="exponent">Exponent:</label>
+    <input type="number" id="exponent" name="exponent" placeholder="Enter the exponent value">
+
+    <br><br>
+
+    <button onclick="calculate()">Calculate</button>
+    <button onclick="clearInputs()">Clear</button>
+
+    <br><br>
+
+    <a href="/fibonacci">Finding nth Fibonacci Number</a>
+    <a href="/tribonacci">Finding nth Tribonacci Number</a>
+
+    <!-- Results Section -->
+    <h2>Results</h2>
+    <pre id="result"></pre>
+
+  </div>
+
+  <script>
+    // Generate matrix input boxes as a grid based on the entered size
+    function generateMatrix() {
+      let size = document.getElementById("matrix-size").value;
+      let container = document.getElementById("matrix-container");
+      container.innerHTML = '';  // Clear any existing matrix
+
+      // Set up grid styling dynamically
+      container.style.display = 'grid';
+      container.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+      container.style.gap = '10px';
+      container.style.justifyItems = 'center';
+      container.style.alignItems = 'center';
+
+      // Create size x size input boxes
+      for (let i = 0; i < size * size; i++) {
+        let inputBox = document.createElement("input");
+        inputBox.type = "number";
+        inputBox.className = "matrix-input";
+        container.appendChild(inputBox);
+      }
+    }
+
+    // Calculate Matrix Exponentiation (logic to call your backend API)
+    function calculate() {
+      let method = document.getElementById("method").value;
+      let exponent = document.getElementById("exponent").value;
+      let matrixSize = document.getElementById("matrix-size").value;
+      let matrixValues = [];
+
+      let inputs = document.querySelectorAll(".matrix-input");
+      let index = 0;
+      for (let i = 0; i < matrixSize; i++) {
+        let rowValues = [];
+        for (let j = 0; j < matrixSize; j++) {
+          rowValues.push(parseFloat(inputs[index].value));
+          index++;
+        }
+        matrixValues.push(rowValues);
+      }
+
+      // Send the matrix data to Flask backend for calculation (example code)
+      fetch(`/matrix-exponentiation`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          method: method,
+          exponent: exponent,
+          matrix: matrixValues
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Format the result matrix for display
+        let matrixResult = data.result;
+        let formattedResult = formatMatrix(matrixResult);
+        document.getElementById("result").innerText = formattedResult;
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        document.getElementById("result").innerText = "Error calculating result.";
+      });
+    }
+
+    // Format the result matrix (each row within square brackets, separated by newlines)
+    function formatMatrix(matrix) {
+      let resultString = '';
+      matrix.forEach((row, rowIndex) => {
+        resultString += '[' + row.join('  ') + ']';
+        if (rowIndex < matrix.length - 1) {
+          resultString += '\n';
+        }
+      });
+      return resultString;
+    }
+
+    // Clear all inputs and result
+    function clearInputs() {
+      document.getElementById("method").value = "naive";
+      document.getElementById("matrix-size").value = "";
+      document.getElementById("exponent").value = "";
+      document.getElementById("matrix-container").innerHTML = "";
+      document.getElementById("result").innerText = "";
+    }
+  </script>
+</body>
+</html>

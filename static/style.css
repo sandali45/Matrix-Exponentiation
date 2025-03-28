@@ -1,0 +1,106 @@
+/* Body Styling */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #B0D0E3;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Container Box for the entire content */
+.container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 600px;
+  text-align: center;
+  border: 3px solid #10344A;
+}
+
+/* Heading */
+h1 {
+  color: #333;
+  font-size: 22px;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+/* Label and Input Alignment */
+label {
+  color: #555;
+  font-size: 14px;
+  display: inline-block;
+  width: 40%;
+  text-align: right;
+  margin-right: 10px;
+}
+
+input[type="number"], select {
+  padding: 10px;
+  font-size: 16px;
+  width: 50%;
+  margin-top: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+/* Ensure alignment in same row */
+.input-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  justify-content: flex-start;
+}
+
+/* Button Styling */
+button {
+  background-color: #70A4C2;
+  color: white;
+  font-size: 14px;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background-color 0.3s ease;
+
+}
+
+button:hover {
+  background-color: #3a4cb0;
+}
+
+/* Results Section */
+pre {
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #f1f1f1;
+  padding: 10px;
+  border-radius: 5px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  color: #333;
+  font-size: 25px;
+  margin-top: 20px;
+  overflow: auto;
+
+}
+
+/* Links */
+a {
+  color: #5e72e4;
+  text-decoration: none;
+  font-size: 14px;
+  display: block;
+  margin-top: 12px;
+}
+
+a:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finding nth Tribonacci Number</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Find nth Tribonacci Number</h1>
+        <img src="{{ url_for('static', filename='Tribonacci.png') }}" alt="My Image">
+
+
+        <div class="center">
+            <label for="tribonacci-n">Enter n:</label>
+            <input type="number" id="tribonacci-n" name="tribonacci-n" min="0" placeholder="Enter the n value">
+
+            <br><br>
+
+            <button onclick="calculateTribonacci()">Calculate Tribonacci</button>
+
+            <br><br>
+
+            <pre id="tribonacci-result" class="result-text"></pre>
+
+            <br><br>
+
+            <a href="/">Go back to Matrix Exponentiation</a>
+        </div>
+    </div>
+
+    <script>
+    function calculateTribonacci() {
+    let n = document.getElementById("tribonacci-n").value;
+
+    if (n === '') {
+        alert('Please enter a value for n');
+        return;
+    }
+
+    fetch(`/tribonacci/${n}`)
+        .then(response => response.json())  // Use .json() to handle the JSON response
+        .then(data => {
+            // Display the Tribonacci result without the "result" key
+            document.getElementById("tribonacci-result").innerText = `Tribonacci(${n}) = ${data.result}`;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById("tribonacci-result").innerText = "Error!";
+        });
+}
+
+    </script>
+</body>
+</html>
